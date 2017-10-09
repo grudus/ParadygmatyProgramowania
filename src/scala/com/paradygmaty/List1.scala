@@ -8,8 +8,11 @@ object List1 {
 
   def flatten[T](list: List[List[T]]): List[T] = {
     if (list.isEmpty) Nil
-    else list.head ++ flatten(list.tail)
+    else list.head ::: flatten(list.tail)
   }
+
+
+  println(flatten(List(List(5, 6), List(1, 2, 3))));
 
 
   /* Zdefiniuj funkcję count : 'a * 'a list -> int obliczającą ile razy dany obiekt występuje
@@ -20,6 +23,12 @@ object List1 {
     else (if (element == list.head) 1 else 0) + count(element, list.tail)
   }
 
+  def count[T](elemAndList: (T, List[T])): Int = {
+    if (elemAndList._2.isEmpty) 0
+    else (if (elemAndList._1 == elemAndList._2.head) 1 else 0) + count((elemAndList._1, elemAndList._2.tail))
+  }
+
+  println(count('a', List('a', 'l', 'a')))
 
   /* Zdefiniuj funkcję replicate: 'a * int -> 'a list powtarzającą dany obiekt określoną liczbę
  razy i zwracającą wynik w postaci listy, np. replicate ("la",3) zwraca ["la"; "la"; "la"].*/
@@ -29,6 +38,7 @@ object List1 {
     else elem :: replicate(elem, times - 1)
   }
 
+  println(replicate ("la",3))
 
   /* Zdefiniuj funkcję sqrList : int list -> int list podnoszącą do kwadratu wszystkie elementy
  danej listy liczb, np. sqrList [1;2;3;-4] zwraca [1; 4; 9; 16].*/
@@ -38,6 +48,8 @@ object List1 {
     else list.head * list.head :: sqrList(list.tail)
   }
 
+  println(sqrList(List(1, 2, 3, -4)));
+
   /*  Zdefiniuj funkcję palindrome : 'a list -> bool sprawdzającą, czy dana lista jest
  palindromem, tj. równa się sobie samej przy odwróconej kolejności elementów,
  np. palindrome ['a'; 'l'; 'a'] zwraca true. */
@@ -46,6 +58,8 @@ object List1 {
     list == list.reverse
   }
 
+  println(palindrome(List(1, 2, 2, 1)))
+
   /* Zdefiniuj swoją funkcję listLength : 'a list -> int, obliczającą długość dowolnej listy
  (oczywiście bez użycia standardowej funkcji List.length).  */
 
@@ -53,5 +67,14 @@ object List1 {
     if (list.isEmpty) 0
     else 1 + listLength(list.tail)
   }
+
+  println (listLength(List(1, 2, 3, 4, 5, 6, 7)))
+
+  def dupa(n: Int): Int = {
+    if (n == 1) 1
+    else Math.log(n).toInt + dupa(n / 2)
+  }
+
+  println(dupa(16));
 
 }
