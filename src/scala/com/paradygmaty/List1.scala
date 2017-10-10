@@ -70,11 +70,12 @@ object List1 {
 
   println (listLength(List(1, 2, 3, 4, 5, 6, 7)))
 
-  def dupa(n: Int): Int = {
-    if (n == 1) 1
-    else Math.log(n).toInt + dupa(n / 2)
+
+  def listAppend[T](first: List[T], second: List[T]) : List[T] = {
+    if (first.isEmpty) second
+    else first.head :: listAppend(first.tail, second)
   }
 
-  println(dupa(16));
+  println (listAppend(List(1, 2, 3, 4), List(5, 5, 5, 5, 5, 5)))
 
 }

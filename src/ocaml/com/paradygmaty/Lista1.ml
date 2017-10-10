@@ -17,12 +17,12 @@ print_endline "\n";;
   /* Zdefiniuj funkcję count : 'a * 'a list -> int obliczającą ile razy dany obiekt występuje
   w danej liście, np. count ('a', ['a'; 'l'; 'a']) zwraca 2. */ *)
 
-  let rec count elem list = 
+  let rec count (elem, list) = 
   if list = [] then 0
 else 
-	(if List.hd list = elem then 1 else 0) + count elem (List.tl list) ;;  
+	(if List.hd list = elem then 1 else 0) + count (elem, (List.tl list)) ;;  
 
-	print_int (count 'a' ['a'; 'l'; 'a']) ;;
+	print_int (count ('a', ['a'; 'l'; 'a'])) ;;
 	print_endline "\n";;
 
 (* 
@@ -68,9 +68,3 @@ printi (sqrList2 [1;2;3;-4]) ;;
  	if list = [] then 0
  	else 1 + listLength (List.tl list) ;; 
 
-
-(* Zdefiniuj funkcjęlistAppend, konkatenującą dwie listy *)
-
-let rec listAppend list1 list2 = 
-  	if list1 = [] then list2 
-     else listAppend (List.hd list1 :: list2) (List.tl list1) ;;
