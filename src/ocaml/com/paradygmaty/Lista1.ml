@@ -30,7 +30,7 @@ Zdefiniuj funkcję replicate: 'a * int -> 'a list powtarzającą dany obiekt okr
 razy i zwracającą wynik w postaci listy, np. replicate ("la",3) zwraca ["la"; "la"; "la"] *)
 
 let rec replicate elem times = 
-	if times = 0 then []
+	if times <= 0 then []
 else elem :: replicate elem (times - 1) ;;
 
 prints (replicate "la" 3) ;;
@@ -42,18 +42,8 @@ let rec sqrList intList =
 	if intList = [] then []
 else List.hd intList * List.hd intList :: sqrList(List.tl intList) ;;
 
-let rec sqrList2 intList = 
-	if intList = [] then []
-else let head = List.hd intList in (
-	let tail = List.tl intList in (
-		head * head :: sqrList2 tail
-	)
-) ;;
-
 print_endline "\n";;
 printi (sqrList [1;2;3;-4]) ;;
-print_endline "\n";;
-printi (sqrList2 [1;2;3;-4]) ;;
 
 (* Zdefiniuj funkcję palindrome : 'a list -> bool sprawdzającą, czy dana lista jest
  palindromem, tj. równa się sobie samej przy odwróconej kolejności elementów,

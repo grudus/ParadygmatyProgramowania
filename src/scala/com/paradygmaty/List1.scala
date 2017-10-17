@@ -8,7 +8,7 @@ object List1 {
 
   def flatten[T](list: List[List[T]]): List[T] = {
     if (list.isEmpty) Nil
-    else list.head ::: flatten(list.tail)
+    else list.head ++ flatten(list.tail)
   }
 
 
@@ -23,18 +23,13 @@ object List1 {
     else (if (element == list.head) 1 else 0) + count(element, list.tail)
   }
 
-  def count[T](elemAndList: (T, List[T])): Int = {
-    if (elemAndList._2.isEmpty) 0
-    else (if (elemAndList._1 == elemAndList._2.head) 1 else 0) + count((elemAndList._1, elemAndList._2.tail))
-  }
-
   println(count('a', List('a', 'l', 'a')))
 
   /* Zdefiniuj funkcję replicate: 'a * int -> 'a list powtarzającą dany obiekt określoną liczbę
  razy i zwracającą wynik w postaci listy, np. replicate ("la",3) zwraca ["la"; "la"; "la"].*/
 
   def replicate[T](elem: T, times: Int): List[T] = {
-    if (times == 0) Nil
+    if (times <= 0) Nil
     else elem :: replicate(elem, times - 1)
   }
 
@@ -44,7 +39,7 @@ object List1 {
  danej listy liczb, np. sqrList [1;2;3;-4] zwraca [1; 4; 9; 16].*/
 
   def sqrList(list: List[Int]): List[Int] = {
-    if (list.isEmpty) Nil
+    if (list == Nil) Nil
     else list.head * list.head :: sqrList(list.tail)
   }
 

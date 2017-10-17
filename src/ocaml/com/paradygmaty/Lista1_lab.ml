@@ -20,7 +20,7 @@ let rec join (separator, listOfTexts) =
 	if listOfTexts = [] then ""
 	else if List.tl listOfTexts = [] then List.hd listOfTexts  
 	else List.hd listOfTexts ^ separator ^ join (separator, (List.tl listOfTexts)) ;;
-
+w
 print_endline (join (" || ", ["ala";"ma";"kota";"a";"kot";"ma";"ale"])) ;;
 print_endline (join ("", ["ala";"ma"])) ;;
 print_endline (join ("|", ["ala"])) ;;
