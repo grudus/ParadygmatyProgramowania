@@ -57,16 +57,17 @@ Fibonacciego.*/
   */
 
   def cubeRoot(number: Double): Double = {
-    @tailrec def cubeRootEps(number: Double, epsilon: Double, cube: Double): Double = {
+    @tailrec def cubeRootEps(cube: Double): Double = {
       cube match {
-        case i if Math.abs(i * i * i - number) <= epsilon * Math.abs(number) => cube
-        case _ => cubeRootEps(number, epsilon, cube + (number / (cube * cube) - cube) / 3)
+        case i if Math.abs(i * i * i - number) <= 1e-15 * Math.abs(number) => cube
+        case _ => cubeRootEps(cube + (number / (cube * cube) - cube) / 3)
       }
     }
 
-    cubeRootEps(number, 1e-15, if (number > 1) number / 3 else number)
+    cubeRootEps(if (number > 1) number / 3 else number)
   }
 
+  println(cubeRoot(1000*1000*1000))
   for (i <- -100 to 100)
     println(cubeRoot(i))
 
@@ -124,10 +125,5 @@ b) Jaka jest złożoność obliczeniowa tej funkcji? Zilustruj rysunkiem (patrz 
   println(replaceNth(List("a", "b", "c", "f"), 3, "dupa"))
   println(replaceNth(List("a", "b", "c", "f"), 4, "dupa"))
   println(replaceNth(Nil, 4, "dupa"))
-
-
-
-  val list: List[Int] = (1 to 1e6.toInt).toList
-  println(replaceNth(list, 1, -13))
 
 }
