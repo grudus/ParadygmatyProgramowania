@@ -4,6 +4,20 @@ import scala.annotation.tailrec
 
 object List2 {
 
+/*Jaka będzie głębokość stosu w Scali, a jaka w OCamlu dla wywołania evenR(3) (funkcja
+zdefiniowana na wykładzie)?*/
+
+  def isEven(n: Int): Boolean = if (n == 0) true else isOdd(n - 1)
+  def isOdd(n: Int): Boolean = if (n == 0) false else isEven(n-1)
+
+  /*
+  * isEven (3)
+  * if n==0 true else isOdd (2)
+  * if n==0 false else isEven (1)
+  * if n == 0 true else isOdd 0
+  * false
+  * */
+
   /*Liczby Fibonacciego są zdefiniowane następująco:
 f(0) = 0
 f(1) = 1

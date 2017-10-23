@@ -1,3 +1,16 @@
+(* 
+Jaka będzie głębokość stosu w Scali, a jaka w OCamlu dla wywołania evenR(3) (funkcja
+zdefiniowana na wykładzie)?
+ *)
+
+ let rec isOdd n = 
+ 	if n = 0 then false
+ 	else isEven (n-1) 
+ and isEven n = 
+ 	if n = 0 then true
+ 	else isOdd (n-1) ;; 
+
+
 (*  Liczby Fibonacciego są zdefiniowane następująco:
  f(0) = 0
  f(1) = 1
@@ -83,7 +96,7 @@ replaceNth (['o'; 'l'; 'a'] ,1, 's') => ['o'; 's'; 'a']
  40) reprezentację obu list.
   *)
 
-  let rec replace_nth (list, index, elem) = match list with
+  let rec replaceNth (list, index, elem) = match list with
   	  [] -> []
   	| h::t when index = 0 -> elem :: t
   	| h::t -> h :: (replaceNth (t, (index - 1), elem)) ;;
