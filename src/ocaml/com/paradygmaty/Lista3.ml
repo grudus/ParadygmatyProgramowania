@@ -1,3 +1,11 @@
+(*  Podaj (i wyjaśnij!) typy poniższych funkcji (samodzielnie, bez pomocy kompilatora OCamla!) :
+ a) let f1 x = x 2 2;; b) let f2 x y z = x ( y ^ z );;
+
+ a) x: (int -> int -> 'a), -> 'a
+b) f2: (string -> 'a) -> string -> string -> 'a
+*)
+
+
 let curry3 f a b c = f(a,b,c) ;;
 let curry3 = function f -> function x -> function y -> function z -> f(x,y,z) ;;
 (*(* val curry3 : ('a * 'b * 'c -> 'd) -> 'a -> 'b -> 'c -> 'd = <fun> *)*)
