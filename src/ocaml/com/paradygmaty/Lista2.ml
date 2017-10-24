@@ -26,6 +26,8 @@ let rec fibonacciDefinition = function
 	1 -> 1 |
 	i -> fibonacciDefinition(i-1) + fibonacciDefinition(i-2) ;;
 
+	(* O (2^n) *)
+
 
  let fibonacci number =
  	let rec fib counter prev next = match counter with 
@@ -33,6 +35,7 @@ let rec fibonacciDefinition = function
  		_ -> fib (counter - 1) next (prev + next) in
  	fib number 0 1 ;;
 
+(* O (n) *)
 
 for i = 0 to 100 do let () = print_int (fibonacci i) in print_endline "" done ;;
 
@@ -97,6 +100,6 @@ replaceNth (['o'; 'l'; 'a'] ,1, 's') => ['o'; 's'; 'a']
   *)
 
   let rec replaceNth (list, index, elem) = match list with
-  	  [] -> []
+  	  [] -> [] 
   	| h::t when index = 0 -> elem :: t
   	| h::t -> h :: (replaceNth (t, (index - 1), elem)) ;;
