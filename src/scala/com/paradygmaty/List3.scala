@@ -15,7 +15,7 @@ object List3 {
 //  nie kuried add
   def add(a: Int, b: Int, c: Int): Int = a + b + c
 
-  add(1)(2)(3)
+//  add(1)(2)(3)  ERRORY
   add(1, 2, 3)
   curry3(add)(1)(2)(3)
 
@@ -24,7 +24,7 @@ object List3 {
     (b: Int) => (c: Int) => a + b + c
 
   add3(3)(2)(1)
-  add3(1, 2, 3)
+//  add3(1, 2, 3)  ERRORY
   unCurry3(add3)(1, 2, 3)
 
 
