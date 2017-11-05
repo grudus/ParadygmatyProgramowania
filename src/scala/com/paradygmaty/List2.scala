@@ -4,11 +4,12 @@ import scala.annotation.tailrec
 
 object List2 {
 
-/*Jaka będzie głębokość stosu w Scali, a jaka w OCamlu dla wywołania evenR(3) (funkcja
-zdefiniowana na wykładzie)?*/
+  /*Jaka będzie głębokość stosu w Scali, a jaka w OCamlu dla wywołania evenR(3) (funkcja
+  zdefiniowana na wykładzie)?*/
 
   def isEven(n: Int): Boolean = if (n == 0) true else isOdd(n - 1)
-  def isOdd(n: Int): Boolean = if (n == 0) false else isEven(n-1)
+
+  def isOdd(n: Int): Boolean = if (n == 0) false else isEven(n - 1)
 
   /*
   * isEven (3)
@@ -47,11 +48,11 @@ Fibonacciego.*/
     fib(n, 0, 1)
   }
 
-  println(fibonacciDefinition(42))
-  println(fibonacci(42))
-
-  for (i <- 0 to 50)
-    println(fibonacci(i))
+//  println(fibonacciDefinition(42))
+//  println(fibonacci(42))
+//
+//  for (i <- 0 to 50)
+//    println(fibonacci(i))
 
 
   /* Dla zadanej liczby rzeczywistej a oraz dokładności  można znaleźć pierwiastek
@@ -72,16 +73,15 @@ Fibonacciego.*/
 
   def cubeRoot(number: Double): Double = {
     @tailrec def cubeRootEps(cube: Double): Double = {
-      cube match {
-        case i if Math.abs(i * i * i - number) <= 1e-15 * Math.abs(number) => cube
-        case _ => cubeRootEps(cube + (number / (cube * cube) - cube) / 3)
-      }
+      if (Math.abs(cube * cube * cube - number) <= 1e-15 * Math.abs(number)) cube
+      else cubeRootEps(cube + (number / (cube * cube) - cube) / 3)
     }
 
-    cubeRootEps(if (number > 1) number / 3 else number)
+    val firstNumber = if (number > 1) number / 3 else number
+    cubeRootEps(firstNumber)
   }
 
-  println(cubeRoot(1000*1000*1000))
+  println(cubeRoot(1000 * 1000 * 1000))
   for (i <- -100 to 100)
     println(cubeRoot(i))
 
@@ -126,10 +126,10 @@ b) Jaka jest złożoność obliczeniowa tej funkcji? Zilustruj rysunkiem (patrz 
 40) reprezentację obu lis*/
 
   def replaceNth[A](list: List[A], index: Int, elem: A): List[A] = {
-    list match {
-      case Nil => Nil
-      case _ :: t if index == 0 => elem :: t
-      case h :: t => h :: replaceNth(t, index - 1, elem)
+    (list, index) match {
+      case (_ :: t, 0) => elem :: t
+      case (h :: t, i) => h :: replaceNth(t, i - 1, elem)
+      case (Nil, _) => throw new Exception (s"Zly indeks ($index)")
     }
   }
 

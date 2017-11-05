@@ -8,8 +8,9 @@ zdefiniowana na wykładzie)?
  	else isEven (n-1) 
  and isEven n = 
  	if n = 0 then true
- 	else isOdd (n-1) ;; 
+ 	else isOdd (n-1) ;;
 
+isEven 
 
 (*  Liczby Fibonacciego są zdefiniowane następująco:
  f(0) = 0
@@ -26,16 +27,13 @@ let rec fibonacciDefinition = function
 	1 -> 1 |
 	i -> fibonacciDefinition(i-1) + fibonacciDefinition(i-2) ;;
 
-	(* O (2^n) *)
-
 
  let fibonacci number =
  	let rec fib counter prev next = match counter with 
- 		0 -> prev |
- 		_ -> fib (counter - 1) next (prev + next) in
- 	fib number 0 1 ;;
+ 		i when i = number -> prev |
+ 		_ -> fib (counter + 1) next (prev + next) in
+ 	fib 0 0 1 ;;
 
-(* O (n) *)
 
 for i = 0 to 100 do let () = print_int (fibonacci i) in print_endline "" done ;;
 
@@ -48,9 +46,7 @@ for i = 0 to 100 do let () = print_int (fibonacci i) in print_endline "" done ;;
  Newtona-Raphsona):
  x0 = a/3 dla a > 1
  x0 = a dla a ≤ 1
- xi+1 = xi + (a/xi
-2
-– xi )/3
+ xi+1 = xi + (a/xi^2 – xi )/3
  Dokładność jest osiągnięta, jeśli |xi^3 – a| <= e * |a| .
  Napisz efektywną (wykorzystującą rekursję ogonową) funkcję root3, która dla zadanej
  liczby a znajduje pierwiastek trzeciego stopnia z dokładnością 10^-15
@@ -60,9 +56,9 @@ for i = 0 to 100 do let () = print_int (fibonacci i) in print_endline "" done ;;
 
  let cubeRoot number = 
  	let firstNumber = if number > 1.0 then number /. 3.0 else number in
- 	let rec cube epsilon currentCube = match currentCube with 
- 		  i when abs_float (currentCube ** 3.0 -. number) <= epsilon *. (abs_float number) -> currentCube
- 		| _ -> cube epsilon (currentCube +. (number /. (currentCube ** 2.0) -. currentCube) /. 3.0) in
+ 	let rec cube epsilon currentCube = 
+ 		if abs_float (currentCube ** 3.0 -. number) <= epsilon *. (abs_float number) then currentCube
+ 		else cube epsilon (currentCube +. (number /. (currentCube ** 2.0) -. currentCube) /. 3.0) in
  	cube 1e-15 firstNumber ;;
 
 
@@ -99,7 +95,7 @@ replaceNth (['o'; 'l'; 'a'] ,1, 's') => ['o'; 's'; 'a']
  40) reprezentację obu list.
   *)
 
-  let rec replaceNth (list, index, elem) = match list with
-  	  [] -> [] 
-  	| h::t when index = 0 -> elem :: t
-  	| h::t -> h :: (replaceNth (t, (index - 1), elem)) ;;
+  let rec replaceNth (list, index, elem) = match (list, index) with
+  	  ([], _) -> []
+  	| (_::t, 0) -> elem :: t
+  	| (h::t, _) -> h :: (replaceNth (t, (index - 1), elem)) ;;
