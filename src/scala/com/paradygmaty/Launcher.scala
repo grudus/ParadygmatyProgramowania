@@ -3,6 +3,6 @@ package com.paradygmaty
 
 object Launcher {
   def main(args: Array[String]): Unit = {
-    List3_lab
+    Lab4
   }
 }

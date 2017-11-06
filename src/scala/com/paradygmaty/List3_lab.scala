@@ -21,9 +21,5 @@ object List3_lab {
 
   println(fromBinary(List(1, 0, 1, 0)))
 
-  def zigi(list: List[Int]): Int = {
-    list.foldLeft((0, 1))()
-
-  }
 
 }
