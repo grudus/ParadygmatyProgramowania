@@ -12,19 +12,19 @@ object List3 {
     (x, y, z) => f(x)(y)(z)
   }
 
-//  nie kuried add
+  //  nie kuried add
   def add(a: Int, b: Int, c: Int): Int = a + b + c
 
-//  add(1)(2)(3)  ERRORY
+  //  add(1)(2)(3)  ERRORY
   add(1, 2, 3)
   curry3(add)(1)(2)(3)
 
-//  kuried add
+  //  kuried add
   def add3(a: Int): (Int) => (Int) => Int =
     (b: Int) => (c: Int) => a + b + c
 
   add3(3)(2)(1)
-//  add3(1, 2, 3)  ERRORY
+  //  add3(1, 2, 3)  ERRORY
   unCurry3(add3)(1, 2, 3)
 
 
@@ -75,5 +75,41 @@ insertionsort : (‘a->‘a->bool) -> ‘a list -> ‘a list .*/
   insertionSort((a: (Int, Int), b: (Int, Int)) => a._1 > b._1, List((4, 2), (3, 1), (3, 2), (5, 6)))
 
   println(insertionSort((a: Int, b: Int) => a > b, List(5, 3, 4, 2, 1)))
+
+
+//  def mergeSort[A](comparator: (A, A) => Boolean)(list: List[A]): List[A] = {
+//
+//  }
+
+  def mergeSort[A](comparator: (A, A) => Boolean)(list: List[A]): List[A] = {
+    def split(index: Int, left: List[A], right: List[A]): (List[A], List[A]) = {
+      (index, right) match {
+        case (_, Nil) => (left.reverse, Nil)
+        case (i, _) if i == 0 => (left.reverse, right)
+        case (i, h :: t) => split(i - 1, h :: left, t)
+      }
+    }
+
+    def merge(comparator: (A, A) => Boolean)(left: List[A], right: List[A]): List[A] = {
+      (left, right) match {
+        case (Nil, r) => r
+        case (l, Nil) => l
+        case (h1 :: t1, h2 :: t2) =>
+          if (comparator(h1, h2)) h1 :: merge(comparator)(t1, right)
+          else h2 :: merge(comparator)(left, t2)
+      }
+    }
+
+    list.length / 2 match {
+      case 0 => list
+      case i =>
+        val (left, right) = split(i, List(), list)
+        merge(comparator)(mergeSort(comparator)(left), mergeSort(comparator)(right))
+    }
+
+
+  }
+
+  println(mergeSort((a: Int, b: Int) => a < b)(List(5,55,4,2,1)))
 
 }
