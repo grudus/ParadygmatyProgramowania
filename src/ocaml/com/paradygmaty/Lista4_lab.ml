@@ -25,3 +25,6 @@ let rec prod_tree tree = match tree with
 	| Empty -> 1
 	| Node(v, l, r) -> v * prod_tree l * prod_tree r ;;
 
+
+
+ let filter xss x = List.filter (fun xs -> List.filter (fun h -> h = x) xs = []) xss ;;
