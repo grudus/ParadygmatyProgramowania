@@ -23,6 +23,13 @@ typu (i dlaczego) muszą być argumenty i wynik funkcji?*/
     }
   }
 
+  def dupa(i: Int)(b: Int) = {}
+
+  dupa {
+    println("hehe")
+    3
+  } {4}
+
   var i = 0
   whileLoop2(() => i < 10)(() => {
     println(i)

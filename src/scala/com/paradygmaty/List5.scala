@@ -24,13 +24,13 @@ object List5 {
   /*Zdefiniuj (w inny sposób, niż na wykładzie) leniwą listę liczb Fibonacciego
  lfib : Stream[Int].*/
 
-  val lfib: Stream[Int] = {
-    def fib(a: Int, b: Int): Stream[Int] = Stream.cons(a, fib(b, a + b))
+  val lfib: Stream[BigInt] = {
+    def fib(current: BigInt, next: BigInt): Stream[BigInt] =
+      current #:: fib(next, current + next)
 
-    fib(0, 1)
+    fib(BigInt.int2bigInt(0), BigInt.int2bigInt(1))
   }
 
-  println(lfib.take(15).toList)
 
 
   /*3. (OCaml i Scala) Polimorficzne leniwe drzewa binarne można zdefiniować następująco:
@@ -60,9 +60,10 @@ Wskazówka: zastosuj obejście drzewa wszerz, reprezentując kolejkę jako zwyk�
     def bsf(queue: List[lBT[A]]): Stream[A] =
       queue match {
         case Nil => Stream.empty[A]
-        case LEmpty::t => bsf(t)
-        case LNode(v,l,r) :: t => v #:: bsf(t ++ List(l(), r()))
+        case LEmpty :: t => bsf(t)
+        case LNode(v, l, r) :: t => v #:: bsf(t ++ List(l(), r()))
       }
+
     bsf(List(tree))
   }
 
