@@ -15,8 +15,8 @@ public class List8_java {
         List8_java modyfikowalna = new List8_java();
         final List8_java niemodyfikowalna = new List8_java();
 
-        argNiemodyfikowalny(modyfikowalna);
-        System.out.println(modyfikowalna.zawartość);
+        argModyfikowalny(niemodyfikowalna);
+        System.out.println(niemodyfikowalna.zawartość);
 // tutaj wstaw instrukcje
     }
 
