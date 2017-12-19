@@ -89,21 +89,6 @@ let rec max = function
 			| Leaf -> node
 			| _ -> max right ;;
 
-
- let remove number =
-	let rec delete x = function
-		| Leaf -> failwith "Cannot find value in tree"
-		| Node (left, k, right) ->
-			if k < x then Node (delete x left, k, right)
-			else if k > x then Node (left, k, delete x right)
-			else match (left, right) with
-				| (Leaf, Leaf) -> Leaf
-				| (left, Leaf) -> left
-				| (Leaf, right) -> right
-				| (_, _) -> let Node(_, value, _) = max left 
-					in Node(delete value left, value, right) 
-	in tree := delete number (!tree) ;; 				
-
 end;;
 
 open Tree ;;
