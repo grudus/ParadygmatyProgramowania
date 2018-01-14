@@ -15,12 +15,7 @@ public class DiningPhilosophers {
         for (int i = 0; i < philosophers.length; i++) {
             Object leftFork = forks[i];
             Object rightFork = forks[(i + 1) % forks.length];
-
-            if (i == philosophers.length - 1) {
-                philosophers[i] = new Philosopher(rightFork, leftFork);
-            } else {
-                philosophers[i] = new Philosopher(leftFork, rightFork);
-            }
+            philosophers[i] = new Philosopher(rightFork, leftFork);
 
             Thread t
                     = new Thread(philosophers[i], "Philosopher " + (i + 1));
@@ -30,9 +25,11 @@ public class DiningPhilosophers {
 }
 
 
-
+@SuppressWarnings("ALL")
 class Philosopher implements Runnable {
 
+    static Object guard = new Object();
+    static int numOfEating = 0;
     // The forks on either side of this Philosopher
     private Object leftFork;
     private Object rightFork;
@@ -47,15 +44,25 @@ class Philosopher implements Runnable {
         try {
             while (true) {
 
+                synchronized (guard) {
+                    while (numOfEating == 4)
+                        guard.wait();
+                }
+
                 // thinking
                 doAction("Thinking");
                 synchronized (leftFork) {
+                    ++numOfEating;
                     doAction("Picked up left fork");
                     synchronized (rightFork) {
                         doAction(" Picked up right fork - eating");
                         doAction(" Put down right fork");
                     }
                     doAction(" Put down left fork. Back to thinking");
+                }
+                synchronized (guard) {
+                    --numOfEating;
+                    guard.notifyAll();
                 }
             }
         } catch (InterruptedException e) {
